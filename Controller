@@ -1,0 +1,82 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Demo;
+use Illuminate\Http\Request;
+
+class DemoController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
+    {
+        $j=Demo::get();
+        return view('user.index',compact('j'));
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        return view('user.create');
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
+        $jeet=new Demo();
+        $jeet->name= $request->name;
+        $jeet->city= $request->city;
+        $jeet->save();
+
+        return redirect()->route('demo.create');
+
+        
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show($id)
+    {
+        $jeet=Demo::find($id);
+return view('user.view',compact('jeet'));
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit($id)
+    {
+        $jeet=Demo::find($id);
+        return view('user.edit',compact('jeet'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request,$id)
+    {
+        $jeet=Demo::find($id);
+        $jeet->name= $request->name;
+        $jeet->city= $request->city;
+        $jeet->save();
+
+        return redirect()->route('demo.index');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy($id)
+    {
+        $jeet=Demo::find($id);;
+        $jeet->delete();
+        return redirect()->route('demo.index');
+    }
+}
