@@ -1,0 +1,42 @@
+@extends('template.layout')
+
+@section('content')
+<h1>
+    Home Page
+</h1>
+
+<h1>Data</h1>
+<table class="table table-border=4px">
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>City</th>
+        <th>show</th>
+        <th>Change</th>
+        <th>Remove</th>
+    </tr>
+    @foreach($j as $data)
+        <tr>
+            <td>{{$data->id}}</td>
+            <td>{{$data->name}}</td>
+            <td>{{$data->city}}</td>
+            <td>
+                <form action="{{route('demo.destroy',$data->id)}}" method="post">
+                    @csrf
+                    @method('delete')   
+                    <input type="submit" value="delete" class="btn btn-danger"></input>
+                </form>
+            </td>
+            <td>
+                <a href="{{route('demo.edit',$data->id)}}" method="post" class="btn btn-info">
+                    Edit
+                </a>
+            </td>
+            <td>
+            <a href="{{route('demo.show',$data->id)}}" method="post" class="btn btn-warning">Show</a>
+
+            </td>
+        </tr>
+    @endforeach
+</table>
+@endsection
